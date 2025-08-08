@@ -1,0 +1,14 @@
+# 生产环境配置
+spring:
+  profiles:
+    active: prod
+  
+  flyway:
+    enabled: true
+    validate-on-migrate: false    # 生产环境跳过验证
+    repair-on-migrate: true       # 自动修复 checksum
+    baseline-on-migrate: true
+    
+logging:
+  level:
+    org.flywaydb: WARN           # 减少日志输出
