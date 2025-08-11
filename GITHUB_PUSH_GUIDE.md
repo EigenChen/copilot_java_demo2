@@ -322,11 +322,46 @@ git push backup main     # 推送到GitLab
 - **注意**: 这不是切换分支，而是重命名分支
 
 #### `git push -u origin main`
-- **作用**: 推送代码到远程仓库
-- **-u**: 设置上游分支（--set-upstream）
+- **作用**: 推送代码到远程仓库并建立跟踪关系
+- **-u**: `--set-upstream` 的简写，设置上游分支跟踪
 - **origin**: 远程仓库别名
 - **main**: 推送的分支名
-- **效果**: 后续可以直接使用 `git push` 推送
+
+**`-u` 参数详细说明**:
+```bash
+# 完整写法
+git push --set-upstream origin main
+
+# 简写形式
+git push -u origin main
+```
+
+**作用机制**:
+1. **推送代码**: 将本地 `main` 分支推送到远程 `origin/main`
+2. **建立跟踪**: 设置本地 `main` 分支跟踪远程 `origin/main` 分支
+3. **简化后续操作**: 建立跟踪后，后续可以直接使用简化命令
+
+**跟踪关系的好处**:
+```bash
+# 有跟踪关系时（使用过 -u 后）
+git push          # 自动推送到 origin main
+git pull          # 自动从 origin main 拉取
+git status        # 显示与远程分支的差异
+
+# 没有跟踪关系时
+git push origin main    # 必须指定远程仓库和分支
+git pull origin main    # 必须指定远程仓库和分支
+```
+
+**验证跟踪关系**:
+```bash
+# 查看分支跟踪情况
+git branch -vv
+
+# 输出示例：
+# * main 1a2b3c4 [origin/main] 最新提交信息
+#   └── [origin/main] 表示本地main分支跟踪远程origin/main
+```
 
 ### 3. 验证推送成功
 推送成功后，访问你的GitHub仓库页面，应该能看到：
